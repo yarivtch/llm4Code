@@ -1,70 +1,80 @@
-# LLM4Code
-
-## 📝 תיאור
+LLM4Code
+📝 תיאור
 מערכת צ'אט לניתוח והסבר קוד המבוססת על מודלים מקומיים של Ollama. המערכת מאפשרת שיחה עם מודלי שפה שונים לצורך הבנת קוד, דיבוג ופתרון בעיות תכנות.
-
-## 🎯 מטרת הפרויקט
+🎯 מטרת הפרויקט
 המערכת נועדה לספק ממשק נוח להתייעצות עם מודלי שפה מתקדמים בנושאי תכנות, כאשר כל העיבוד מתבצע מקומית על המחשב שלך - ללא תלות בשירותי ענן או API חיצוניים.
+💻 דרישות מערכת
 
-## 💻 דרישות מערכת
-* Python 3.8 ומעלה
-* 8GB RAM לפחות (תלוי במודל שנבחר)
-* מערכת הפעלה: Windows/Mac/Linux
+Python 3.8 ומעלה
+8GB RAM לפחות (תלוי במודל שנבחר)
+מערכת הפעלה: Windows/Mac/Linux
 
-## 🚀 התקנה
+🚀 התקנה
+1. התקנת Python וסביבת עבודה
 
-### התקנת Ollama
+וודא שPython 3.8 ומעלה מותקן:
+python --version
 
-1. הורד את Ollama מהאתר הרשמי:
-   * [הורד Ollama](https://ollama.ai/download)
-   * עקוב אחר הוראות ההתקנה למערכת ההפעלה שלך
+מומלץ ליצור סביבת עבודה וירטואלית:
+python -m venv venv
 
-2. הורד את המודלים הרצויים:
-   ```bash
-   # מודל מהיר (~4GB)
-   ollama pull mistral    
+# הפעלת הסביבה - Windows
+.\venv\Scripts\activate
 
-   # מודל מיוחד לקוד (~8GB)
-   ollama pull codellama  
+# הפעלת הסביבה - Mac/Linux
+source venv/bin/activate
 
-   # מודל כללי (~8GB)
-   ollama pull llama2     
-   ```
 
-### התקנת הפרויקט
+2. התקנת Ollama
 
-1. שכפל את הריפוזיטורי:
-   ```bash
-   git clone https://github.com/yarivtch/llm4Code.git
-   cd llm4Code
-   ```
+הורד את Ollama מהאתר הרשמי:
 
-2. התקן את התלויות הנדרשות:
-   ```bash
-   pip install -r requirements.txt
-   ```
+הורד Ollama
+עקוב אחר הוראות ההתקנה למערכת ההפעלה שלך
 
-## ⚡ הפעלה
 
-1. הפעל את שרת Ollama (בטרמינל נפרד):
-   ```bash
-   ollama serve
-   ```
+הורד את המודלים הרצויים:
+# מודל מהיר (~4GB)
+ollama pull mistral    
 
-2. הפעל את שרת Flask (בטרמינל נפרד):
-   ```bash
-   python server.py
-   ```
+# מודל מיוחד לקוד (~8GB)
+ollama pull codellama  
 
-3. הפעל שרת מקומי לממשק המשתמש (בטרמינל נפרד):
-   ```bash
-   python -m http.server 8080
-   ```
+# מודל כללי (~8GB)
+ollama pull llama2
 
-4. פתח את הדפדפן בכתובת:
-   ```
-   http://localhost:8080
-   ```
+
+3. התקנת הפרויקט
+
+שכפל את הריפוזיטורי:
+git clone https://github.com/yarivtch/llm4Code.git
+cd llm4Code
+
+התקן את כל התלויות הנדרשות:
+pip install -r requirements.txt
+התלויות כוללות:
+
+Flask 3.1.0 - מסגרת web
+Flask-Cors 5.0.0 - תמיכה בCORS
+requests 2.32.3 - לביצוע קריאות HTTP
+וספריות תומכות נוספות
+
+
+
+⚡ הפעלה
+
+הפעל את שרת Ollama (בטרמינל נפרד):
+ollama serve
+
+הפעל את שרת Flask (בטרמינל נפרד):
+b# וודא שאתה בסביבה הווירטואלית
+python server.py
+
+הפעל שרת מקומי לממשק המשתמש (בטרמינל נפרד):
+python -m http.server 8080
+
+פתח את הדפדפן בכתובת:
+http://localhost:8080
 
 ## 🎮 שימוש במערכת
 1. בחר את המודל הרצוי מהרשימה הנפתחת
