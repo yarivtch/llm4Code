@@ -43,6 +43,8 @@ ollama pull codellama
 # מודל כללי (~8GB)
 ollama pull llama2
 
+# מודל בעברית
+ollama pull aya
 
 3. התקנת הפרויקט
 
