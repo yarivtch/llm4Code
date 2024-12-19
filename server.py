@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import requests
 import json
+from prompts import get_system_prompt, MODEL_PROMPTS
+
 
 app = Flask(__name__)
 CORS(app)
@@ -23,29 +25,7 @@ class OllamaCodeAssistant:
         self.host = host
         self.api_endpoint = f"{host}/api/generate"
         self.context = []
-        self.system_prompt = """
-        אתה מומחה תכנות שמסביר קוד בצורה טכנית וממוקדת. כשמציגים לך קטע קוד:
-
-        1. התמקד רק בקוד שהוצג
-        2. תן הסבר טכני קצר לכל מאפיין
-        3. הצג את המשמעות המעשית
-        4. אל תוסיף מידע לא רלוונטי
-
-        לדוגמה, עבור קוד CSS:
-        ```css
-        .container {
-            display: flex;
-            gap: 10px;
-        }
-        ```
-
-        הסבר דוגמה:
-        קוד זה מגדיר סגנון ל-container:
-        1. display: flex - יוצר מיכל גמיש שמסדר את האלמנטים בשורה
-        2. gap: 10px - מגדיר רווח של 10 פיקסלים בין האלמנטים
-
-        השימוש המעשי: מתאים ליצירת שורת כפתורים או תפריט עם רווחים שווים.
-        """
+        self.system_prompt = get_system_prompt(model)
 
     def send_message(self, message: str, temperature: float = 0.7):
         try:
@@ -53,14 +33,14 @@ class OllamaCodeAssistant:
             payload = {
                 "model": self.model,
                 "prompt": prompt,
-                "stream": True,  # הפעלת streaming
+                "stream": True,  # 
                 "options": {
                     "temperature": temperature,
                     "num_predict": 1024,
-                    "num_ctx": 256,         # 512 הקטנת חלון ההקשר
-                    "num_thread": 8,        # הגדלת מספר התהליכונים
-                    "top_k": 20,           # הגבלת מספר המילים הבאות לבחירה
-                    "top_p": 0.7           # הגבלת הסתברות הבחירה
+                    "num_ctx": 512 ,         #256   חלון ההקשר
+                    "num_thread": 8,        #  מספר התהליכונים
+                    "top_k": 20,           #  מספר המילים הבאות לבחירה
+                    "top_p": 0.7           #  הסתברות הבחירה
                 }
             }
             
@@ -68,7 +48,7 @@ class OllamaCodeAssistant:
             response.raise_for_status()
             
             full_response = ""
-            for line in response.iter_lines():
+            for line in response.iter_lines(): 
                 if line:
                     chunk = json.loads(line.decode())
                     if "response" in chunk:
